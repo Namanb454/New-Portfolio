@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp } from "@/components/Section";
 import { ArrowUpRight, Loader2, AlertCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,43 +24,55 @@ const GOOGLE_SCRIPT_URL: any = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
 export default function BookACallPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [formData, setFormData] = useState<any>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const form = e.currentTarget;
-        setIsLoading(true);
-        setError(null);
+    useEffect(() => {
+        if (!formData) return;
 
-        const formData = new FormData(form);
-        const data = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            type: formData.get("type"),
-            reason: formData.get("reason"),
+        const submitForm = async () => {
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) throw new Error("Failed to submit");
+                const json = await response.json();
+                if (json.result === "error") {
+                    console.error("Google Apps Script Error:", json.error);
+                    throw new Error(json.error?.message || "Script returned an error");
+                }
+                toast.success("Request sent successfully!");
+                formRef.current?.reset();
+
+            } catch (err: any) {
+                console.error(err);
+                setError(err.message || "Something went wrong. Please try again or email directly.");
+                toast.error("Something went wrong. Please try again.");
+            } finally {
+                setIsLoading(false);
+                setFormData(null);
+            }
         };
 
-        try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify(data),
-            });
+        submitForm();
+    }, [formData]);
 
-            if (!response.ok) throw new Error("Failed to submit");
-            const json = await response.json();
-            if (json.result === "error") {
-                console.error("Google Apps Script Error:", json.error);
-                throw new Error(json.error?.message || "Script returned an error");
-            }
-            toast.success("Request sent successfully!");
-            form.reset();
-
-        } catch (err: any) {
-            console.error(err);
-            setError(err.message || "Something went wrong. Please try again or email directly.");
-            toast.error("Something went wrong. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const newFormData = new FormData(form);
+        const data = {
+            name: newFormData.get("name"),
+            email: newFormData.get("email"),
+            type: newFormData.get("type"),
+            reason: newFormData.get("reason"),
+        };
+        setFormData(data);
     }
 
     return (
@@ -80,7 +92,7 @@ export default function BookACallPage() {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6 bg-neutral-50 p-8 md:p-12 rounded-[3rem] border border-black/5 relative overflow-hidden">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 bg-neutral-50 p-8 md:p-12 rounded-[3rem] border border-black/5 relative overflow-hidden">
                     {/* Form Content */}
                     <div className="space-y-2">
                         <Label htmlFor="name" className="ml-2 uppercase tracking-wide text-xs text-muted-foreground">Name</Label>
