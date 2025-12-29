@@ -3,7 +3,7 @@
 import { usePortfolio, SECTIONS } from "@/context/PortfolioContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useState, TouchEvent } from "react";
 
 interface SliderLayoutProps {
     children: ReactNode[];
@@ -12,11 +12,45 @@ interface SliderLayoutProps {
 export default function SliderLayout({ children }: SliderLayoutProps) {
     const { currentSectionIndex, nextSection, prevSection, isFirstSection, isLastSection } = usePortfolio();
 
-    // Ensure we define direction based on index change for slide animation if needed, 
-    // currently using a simple fade/scale transition.
+    // Swipe handling state
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Minimum swipe distance (in px)
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e: TouchEvent) => {
+        setTouchEnd(null); // Reset touch end
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe && !isLastSection) {
+            nextSection();
+        }
+
+        if (isRightSwipe && !isFirstSection) {
+            prevSection();
+        }
+    };
 
     return (
-        <div className="fixed inset-0 w-full h-[100dvh] overflow-hidden bg-white text-foreground flex flex-col">
+        <div
+            className="fixed inset-0 w-full h-[100dvh] overflow-hidden bg-white text-foreground flex flex-col"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+        >
 
             {/* Main Content Area */}
             <div className="flex-1 w-full h-full relative overflow-hidden">
