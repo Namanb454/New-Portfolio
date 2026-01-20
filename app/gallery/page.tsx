@@ -4,13 +4,24 @@ import { motion } from "framer-motion";
 import { fadeInUp } from "@/components/Section";
 import Image from "next/image";
 
+// Gallery items with actual image dimensions for proper bento grid sizing
 const galleryItems = [
-    { id: 1, title: "FinTech Dashboard", category: "UI Design", image: "/gallery/1.jpg" }, // Placeholder
-    { id: 2, title: "Wellness App", category: "Mobile Design", image: "/gallery/2.jpg" },
-    { id: 3, title: "SaaS Analytics", category: "Web App", image: "/gallery/3.jpg" },
-    { id: 4, title: "E-commerce Redesign", category: "UI/UX", image: "/gallery/4.jpg" },
-    { id: 5, title: "Portfolio Concept", category: "Web Design", image: "/gallery/5.jpg" },
-    { id: 6, title: "Banking App", category: "Mobile UI", image: "/gallery/6.jpg" },
+    { id: 1, title: "Reamor UI", category: "UI Design", image: "/images/p1.webp", width: 1200, height: 900 },
+    { id: 2, title: "Tipriyo", category: "Mobile Design", image: "/images/p2.webp", width: 800, height: 1200 },
+    { id: 3, title: "Real Estate", category: "Web App", image: "/images/p4.webp", width: 1400, height: 800 },
+    { id: 4, title: "Ai Gen Reels", category: "UI/UX", image: "/images/p5.webp", width: 600, height: 1000 },
+    { id: 5, title: "Npm Js", category: "Web Design", image: "/images/p6.webp", width: 1600, height: 900 },
+    { id: 6, title: "Horizon", category: "Mobile UI", image: "/images/p7.webp", width: 800, height: 1400 },
+    { id: 7, title: "Horizon", category: "Mobile UI", image: "/images/p8.webp", width: 1000, height: 600 },
+    { id: 8, title: "Horizon", category: "Mobile UI", image: "/images/p9.webp", width: 900, height: 900 },
+    { id: 9, title: "Horizon", category: "Mobile UI", image: "/images/p10.webp", width: 900, height: 900 },
+    { id: 10, title: "Horizon", category: "Mobile UI", image: "/images/p11.webp", width: 900, height: 900 },
+    { id: 11, title: "Horizon", category: "Mobile UI", image: "/images/p12.webp", width: 900, height: 900 },
+    { id: 12, title: "Horizon", category: "Mobile UI", image: "/images/p13.webp", width: 900, height: 900 },
+    { id: 13, title: "Horizon", category: "Mobile UI", image: "/images/p14.webp", width: 900, height: 900 },
+    { id: 14, title: "Horizon", category: "Mobile UI", image: "/images/p15.webp", width: 900, height: 900 },
+    { id: 15, title: "Horizon", category: "Mobile UI", image: "/images/p16.webp", width: 900, height: 900 },
+    { id: 16, title: "Horizon", category: "Mobile UI", image: "/images/p17.webp", width: 900, height: 900 },
 ];
 
 export default function GalleryPage() {
@@ -31,23 +42,27 @@ export default function GalleryPage() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Bento Grid Layout using CSS columns for masonry effect */}
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                     {galleryItems.map((item) => (
                         <motion.div
                             key={item.id}
                             variants={fadeInUp}
-                            className="group relative aspect-[4/3] bg-neutral-100 rounded-[2rem] overflow-hidden border border-black/5 hover:shadow-2xl transition-all duration-500"
+                            className="group relative bg-neutral-100 dark:bg-neutral-900 rounded-[1.5rem] overflow-hidden border border-black/5 dark:border-white/10 hover:shadow-2xl transition-all duration-500 break-inside-avoid"
                         >
-                            {/* Placeholder for images since we don't have real ones yet. 
-                                In a real app, use next/image here. 
-                            */}
-                            <div className="absolute inset-0 bg-neutral-200 group-hover:bg-neutral-300 transition-colors flex items-center justify-center text-muted-foreground/30 text-4xl font-serif italic">
-                                Preview
-                            </div>
+                            {/* Image with natural aspect ratio */}
+                            <Image
+                                src={item.image}
+                                alt={item.title}
+                                width={item.width}
+                                height={item.height}
+                                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                                <h3 className="text-white text-2xl font-bold">{item.title}</h3>
-                                <p className="text-white/80 font-medium">{item.category}</p>
+                            {/* Hover overlay with title and category */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 className="text-white text-xl md:text-2xl font-bold">{item.title}</h3>
+                                <p className="text-white/80 font-medium text-sm md:text-base">{item.category}</p>
                             </div>
                         </motion.div>
                     ))}

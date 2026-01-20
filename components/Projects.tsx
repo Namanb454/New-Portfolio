@@ -3,6 +3,7 @@
 import Section, { fadeInUp } from "./Section";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const projects = [
     {
@@ -10,42 +11,49 @@ const projects = [
         description: "Created a web-based virtual staging application that enables users to choose a particular room category along with its style. The application features over 7 categories of rooms and their respective styles and helps you to save 90% of the cost.",
         tags: ["React", "AI", "Virtual Staging"],
         gradient: "from-blue-600/10 to-cyan-500/10",
-    },
-    {
-        title: "Ai Gen Reels",
-        description: "Automated video content creation platform powered by AI.",
-        tags: ["AI Video", "Automation", "Content"],
-        gradient: "from-purple-600/10 to-pink-500/10",
-    },
-    {
-        title: "Docu Gen",
-        description: "Intelligent document processing and summarization tool.",
-        tags: ["NLP", "Productivity", "SaaS"],
-        gradient: "from-emerald-600/10 to-teal-500/10",
-    },
-    {
-        title: "Npm Js",
-        description: "Developed a clone of the famous npm Js website. Search & install your favourite npm packages.",
-        tags: ["Clone", "Search", "Registry"],
-        gradient: "from-red-600/10 to-orange-500/10",
+        link: "https://tipriyo.ai",
     },
     {
         title: "Reamor UI",
         description: "Developed an open source library for UI developers to perform parallax animations.",
         tags: ["Open Source", "UI Library", "Parallax"],
         gradient: "from-indigo-600/10 to-blue-500/10",
+        link: "https://reamor-ui.vercel.app/",
+    },
+    {
+        title: "Ai Gen Reels",
+        description: "Automated video content creation platform powered by AI.",
+        tags: ["AI Video", "Automation", "Content"],
+        gradient: "from-purple-600/10 to-pink-500/10",
+        link: "https://aigenreels.com/",
+    },
+    {
+        title: "Docu Gen",
+        description: "Intelligent document processing and summarization tool.",
+        tags: ["NLP", "Productivity", "SaaS"],
+        gradient: "from-emerald-600/10 to-teal-500/10",
+        link: "https://docugen.ai",
+    },
+    {
+        title: "Npm Js",
+        description: "Developed a clone of the famous npm Js website. Search & install your favourite npm packages.",
+        tags: ["Clone", "Search", "Registry"],
+        gradient: "from-red-600/10 to-orange-500/10",
+        link: "https://npmjs-clone-two.vercel.app/",
     },
     {
         title: "Horizon",
         description: "Built a platform that helps to connect with 50+ together and display transactions in real time.",
         tags: ["Real-time", "Fintech", "Networking"],
         gradient: "from-yellow-500/10 to-amber-600/10",
+        link: "https://github.com/Namanb454/BankingApp",
     },
     {
         title: "E-commerce",
         description: "The ecommerce application is built on the MERN stack, utilizing ReactJS for the front end with Bootstrap for the user interface. The backend is developed using Node.js, and MongoDB is used as the database.",
         tags: ["MERN", "Bootstrap", "MongoDB"],
         gradient: "from-green-600/10 to-emerald-500/10",
+        link: "https://materials.livspace.com/",
     },
 ];
 
@@ -76,9 +84,9 @@ export default function Projects() {
                                     </div>
                                 </div>
 
-                                <a href="#" className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-black/10 font-bold hover:bg-black hover:text-white transition-all shadow-sm">
-                                    View Case Study <ArrowUpRight className="w-4 h-4" />
-                                </a>
+                                <Link href={project.link} target="_blank" className="flex items-center gap-2 px-6 py-3 bg-white rounded-full border border-black/10 font-bold hover:bg-black hover:text-white transition-all shadow-sm">
+                                    View <ArrowUpRight className="w-4 h-4" />
+                                </Link>
                             </div>
 
                             <div className="md:w-3/4 relative z-10">

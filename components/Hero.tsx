@@ -88,7 +88,7 @@ export default function Hero() {
                     <p className="text-lg md:text-2xl text-muted-foreground font-light leading-snug">
                         It's <span className="text-foreground font-medium">Naman Bansal</span>.
                         <br />
-                        Building <span className="radiant-text font-semibold">Web Applications</span> & <span className="radiant-text font-semibold">AI Agents</span>.
+                        Building <span className="radiant-text font-semibold">Saas</span> & <span className="radiant-text font-semibold">AI Agents</span>.
                     </p>
                 </motion.div>
             </div>
