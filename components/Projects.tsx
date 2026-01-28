@@ -7,6 +7,13 @@ import Link from "next/link";
 
 const projects = [
     {
+        title: "No-code Dashboard Builder",
+        description: "Created a no-code dashboard builder where user can create dashboards using drag and drop. This is fully customisable as user can edit the dashboard as per their needs and also export the dashboard in the form of code.",
+        tags: ["React", "Next", "Zustand"],
+        gradient: "from-blue-600/10 to-cyan-500/10",
+        link: "https://no-code-dashboard-builder-9ja4.vercel.app/",
+    },
+    {
         title: "Tipriyo",
         description: "Created a web-based virtual staging application that enables users to choose a particular room category along with its style. The application features over 7 categories of rooms and their respective styles and helps you to save 90% of the cost.",
         tags: ["React", "AI", "Virtual Staging"],
