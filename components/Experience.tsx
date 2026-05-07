@@ -5,15 +5,21 @@ import { motion } from "framer-motion";
 
 const experiences = [
     {
+        company: "Star Estate",
+        role: "Senior Software Developer",
+        period: "Feb 2026 - Present",
+        description: "Working on building enterprise-scale real estate applications using Next.js, Node.js, Postgres, and AWS.",
+    },
+    {
         company: "XEqualTo",
         role: "Frontend Engineer",
-        period: "April 2025 - Present",
-        description: "Developing high-performance frontend architectures and scalable web applications.",
+        period: "April 2025 - Feb 2026",
+        description: "Developing high-performance frontend architectures and scalable web applications for enterprise clients, improving load times by 40%.",
     },
     {
         company: "Mono",
         role: "SDE-Frontend",
-        period: "Dec 2024 - Present",
+        period: "Dec 2024 - Feb 2026",
         description: "Contributing to core product development with a focus on React and modern CSS frameworks.",
     },
     {
