@@ -1,23 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Funnel_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { PortfolioProvider } from "@/context/PortfolioContext";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const funnel = Funnel_Sans({
+  variable: "--font-funnel",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Naman Bansal",
-  description: "Full Stack Developer",
+  title: "Naman Bansal — Full Stack & AI Engineer",
+  description:
+    "Full-stack Software Engineer at Star Estate — shipping AI-first products end to end, from database schema and API design to frontend and deploy.",
 };
 
 export default function RootLayout({
@@ -26,17 +36,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${funnel.variable} ${inter.variable} ${jetbrains.variable} antialiased`}
       >
-        <PortfolioProvider>
-          <Navbar />
-          <main className="relative selection:bg-black selection:text-white">
-            {children}
-          </main>
+        <ThemeProvider>
+          <div className="mx-auto max-w-[952px] px-4">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
           <Toaster />
-        </PortfolioProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
