@@ -108,7 +108,7 @@ export default function Home() {
       <section className="pt-28">
         <Image
           className="bi d2 block rounded-full bg-[var(--tile)] object-cover"
-          src="/hero-image.jpg"
+          src="/images/profile.png"
           alt="Naman Bansal"
           width={64}
           height={64}
@@ -264,7 +264,7 @@ export default function Home() {
               }}
             >
               <Image
-                src="/hero-image.jpg"
+                src="/images/profile.png"
                 alt="Naman in a black tee"
                 width={300}
                 height={333}

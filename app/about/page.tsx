@@ -87,11 +87,11 @@ export default function AboutPage() {
       </section>
 
       <figure
-        className="hero-photo bi d3 relative mt-12 overflow-hidden rounded-[20px]"
+        className="hero-photo relative mt-12 overflow-hidden rounded-[20px]"
         style={{ aspectRatio: "16 / 9", background: "#1A1A1A" }}
       >
         <Image
-          src="/hero-image.jpg"
+          src="/images/profile.png"
           alt="Naman Bansal in a black tee against a dark backdrop"
           fill
           sizes="952px"
